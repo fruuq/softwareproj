@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fit-Life - OTP Verification</title>
+    <style>
+        /* أنماط أساسية */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            background-color: #000;
+            position: relative;
+        }
+        
+        /* خلفية شفافة */
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU96OFHjt-8m9uQIuq8DxIyky4vQzo_nFUyA&s');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            filter: blur(1px);
+            z-index: -1;
+        }
+        
+        /* بطاقة التحقق - معدلة للكمبيوتر */
+        .otp-container {
+            width: 700px;
+            margin: auto;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 50px;
+            padding: 80px 60px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .otp-title {
+            font-size: 56px;
+            margin-bottom: 60px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        .otp-input-container {
+            margin-bottom: 50px;
+            text-align: left;
+        }
+        
+        .otp-label {
+            font-size: 28px;
+            margin-bottom: 20px;
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .otp-input {
+            width: 100%;
+            height: 70px;
+            background: rgba(217, 217, 217, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 0 25px;
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .otp-input:focus {
+            outline: none;
+            border-color: rgba(227, 219, 219, 0.5);
+            background: rgba(217, 217, 217, 0.4);
+            box-shadow: 0 0 10px rgba(227, 219, 219, 0.2);
+        }
+        
+        .verify-btn {
+            width: 100%;
+            height: 70px;
+            background: #E3DBDB;
+            border: none;
+            border-radius: 15px;
+            color: black;
+            font-size: 28px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .verify-btn:hover {
+            background: #c0c0c0;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .verify-btn:active {
+            transform: translateY(-2px);
+        }
+        
+        .otp-message {
+            font-size: 22px;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.7);
+            font-family: 'Instrument Serif', serif;
+            letter-spacing: 0.5px;
+        }
+        
+        /* التذييل - معدل للكمبيوتر */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 25px 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .footer-links a:hover {
+            color: #E3DBDB;
+        }
+        
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #E3DBDB;
+            transition: width 0.3s ease;
+        }
+        
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(85, 85, 85, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .social-icon:hover {
+            background-color: #E3DBDB;
+            transform: translateY(-5px) scale(1.1);
+            color: black;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* التصميم المتجاوب */
+        @media (max-width: 1200px) {
+            .otp-container {
+                width: 600px;
+                padding: 60px 50px;
+            }
+            
+            .otp-title {
+                font-size: 48px;
+            }
+            
+            .otp-input {
+                height: 60px;
+                font-size: 22px;
+            }
+            
+            .verify-btn {
+                height: 60px;
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .otp-container {
+                width: 90%;
+                padding: 50px 30px;
+                border-radius: 40px;
+            }
+            
+            .otp-title {
+                font-size: 40px;
+                margin-bottom: 50px;
+            }
+            
+            .otp-label {
+                font-size: 24px;
+            }
+            
+            .footer-links {
+                gap: 25px;
+            }
+            
+            .footer-links a {
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .otp-title {
+                font-size: 32px;
+            }
+            
+            .otp-label {
+                font-size: 20px;
+            }
+            
+            .otp-message {
+                font-size: 18px;
+            }
+            
+            .social-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- خلفية الصفحة -->
+    <div class="background"></div>
+    
+    <!-- محتوى صفحة التحقق -->
+    <div class="otp-container">
+        <h1 class="otp-title">OTP VERIFICATION</h1>
+        
+        <div class="otp-input-container">
+            <label for="otp-code" class="otp-label">ENTER OTP CODE</label>
+            <input type="text" id="otp-code" class="otp-input" placeholder="Enter 6-digit code">
+        </div>
+        <a href="HomePage.html" style="text-decoration: none;">
+        <button class="verify-btn">
+            VERIFY NOW
+        </button>
+        </a>
+        <p class="otp-message">We have sent OTP code to your registered email address</p>
+    </div>
+    
+    <!-- تذييل الصفحة -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+        <div class="social-icons">
+            <div class="social-icon">f</div>
+            <div class="social-icon">t</div>
+            <div class="social-icon">in</div>
+        </div>
+    </footer>
+    
+    <script>
+        // دالة للتحقق من صحة رمز OTP
+        document.querySelector('.verify-btn').addEventListener('click', function() {
+            const otpCode = document.getElementById('otp-code').value;
+            
+            if (otpCode.length === 6 && /^\d+$/.test(otpCode)) {
+                alert('Verification successful! Redirecting...');
+                // هنا يمكنك إضافة التحويل إلى صفحة أخرى
+                // window.location.href = 'dashboard.html';
+            } else {
+                alert('Please enter a valid 6-digit OTP code');
+            }
+        });
+        
+        // إمكانية الضغط على زر Enter للتحقق
+        document.getElementById('otp-code').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.verify-btn').click();
+            }
+        });
+    </script>
+</body>
+</html>

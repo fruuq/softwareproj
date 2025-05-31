@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Healthy Lifestyle Signup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter&family=Inika&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+    }
+
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2;
+      z-index: -1;
+    }
+
+    .overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .left {
+      position: absolute;
+      top: 20%;
+      left: 5%;
+      z-index: 2;
+      color: #E4DBDB;
+      font-family: 'Instrument Serif', serif;
+      font-size: 4vw;
+      line-height: 1.2;
+    }
+
+    .right {
+      position: absolute;
+      top: 10%;
+      right: 5%;
+      width: 35%;
+      min-width: 300px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 2rem;
+      padding: 2rem;
+      z-index: 2;
+      color: white;
+    }
+
+    .signup-title {
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form label {
+      font-size: 1rem;
+    }
+
+    .form input {
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      border: none;
+      background: rgba(217, 217, 217, 0.5);
+      color: white;
+    }
+
+    .form button {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      border: none;
+      background: #E3DBDB;
+      color: black;
+      font-size: 1.25rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .form button:hover {
+      background: #d0c8c8;
+      transform: translateY(-2px);
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 2%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 2;
+    }
+
+    .footer .links {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .footer a {
+      color: white;
+      font-family: 'Inika', serif;
+      font-size: 1.25rem;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      opacity: 0.7;
+    }
+
+    .social-icons {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    .social-icons img {
+      width: 30px;
+      height: 30px;
+      transition: transform 0.3s;
+      filter: brightness(0) invert(1);
+    }
+
+    .social-icons img:hover {
+      transform: translateY(-4px);
+    }
+
+    @media (max-width: 768px) {
+      .left {
+        font-size: 2rem;
+        top: 10%;
+      }
+
+      .right {
+        position: static;
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 2rem;
+      }
+
+      .footer {
+        position: static;
+        margin-top: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="background"></div>
+    <div class="overlay"></div>
+
+    <div class="left">
+      <h1>Healthy food <br>and <br>workout</h1>
+    </div>
+
+    <div class="right">
+      <div class="signup-title">Sign Up</div>
+      <form class="form">
+        <label>Username</label>
+        <input type="text" placeholder="Enter your username">
+        
+        <label>Email</label>
+        <input type="email" placeholder="Enter your email">
+
+        <label>Password</label>
+        <input type="password" placeholder="Enter your password">
+
+        <label>Confirm Password</label>
+        <input type="password" placeholder="Confirm your password">
+              
+
+        <button type="submit">  <a href="OTP.html " style="text-decoration: none ;">Sign Up</a></button>
+        
+      </form>
+    </div>
+
+    <footer class="footer">
+      <div class="links">
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+      </div>
+      <div class="social-icons">
+        <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

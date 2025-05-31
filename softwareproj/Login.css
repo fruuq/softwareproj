@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500&family=Inika&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+    background-color: #000;
+    position: relative;
+}
+
+.background-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2;
+      z-index: -1;
+    
+}
+
+.welcome-section {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    padding: 2rem;
+}
+
+.welcome-text {
+    color: #E4DBDB;
+    font-family: 'Instrument Serif', serif;
+    font-size: 6rem;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+}
+
+.login-section {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.login-container {
+    width: 80%;
+    max-width: 500px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 40px;
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.login-title {
+    color: white;
+    font-size: 3rem;
+    font-weight: 400;
+    text-align: center;
+    opacity: 0.7;
+    margin-bottom: 1rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-label {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.input-field {
+    width: 100%;
+    height: 52px;
+    background: rgba(217, 217, 217, 0.5);
+    border: none;
+    border-radius: 10px;
+    padding: 0 1rem;
+    color: white;
+    font-size: 1rem;
+}
+
+.input-field::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.password-field {
+    background: rgba(217, 217, 217, 0.5);
+}
+
+.login-button {
+    width: 100%;
+    height: 52px;
+    background: #E3DBDB;
+    border: none;
+    border-radius: 10px;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-button:hover {
+    background: #d0c8c8;
+    transform: translateY(-2px);
+}
+
+.footer {
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    z-index: 2;
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-link {
+    color: white;
+    font-family: 'Inika', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.footer-link:hover {
+    opacity: 0.8;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-icon {
+    color: white;
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.social-icon:hover {
+    color: #E3DBDB;
+    transform: translateY(-5px);
+}
+
+@media (max-width: 1024px) {
+    .welcome-text {
+        font-size: 4rem;
+    }
+
+    .login-title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .welcome-section,
+    .login-section {
+        width: 100%;
+        height: auto;
+    }
+
+    .welcome-section {
+        padding-top: 4rem;
+        padding-bottom: 2rem;
+    }
+
+    .login-section {
+        padding-bottom: 4rem;
+    }
+
+    .welcome-text {
+        font-size: 3rem;
+    }
+
+    .login-container {
+        width: 90%;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .social-icon {
+        font-size: 1.5rem;
+    }
+}

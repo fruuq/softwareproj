@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Inder&family=Inika:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+
+    body {
+        background-color: #211F1F;
+        color: white;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1920px;
+        margin: 0 auto;
+        padding: 20px 40px;
+        margin-top: 73px; /* تعويض لشريط التنقل الثابت */
+    }
+
+    /* Navigation من الكود الأول */
+    .nav-container {
+        width: 100%; 
+        height: 73px; 
+        position: fixed; 
+        top: 0; 
+        z-index: 1000;
+    }
+    
+    .nav-background {
+        width: 100%; 
+        height: 73px; 
+        left: 0px; 
+        top: 0px; 
+        position: absolute; 
+        background: #E3DBDB;
+    }
+    
+    .logo-container {
+        width: 40px; 
+        height: 20px; 
+        left: 121px; 
+        top: 16px; 
+        position: absolute;
+    }
+    
+    .logo {
+        width: 33.37px; 
+        height:30px; 
+        left: 3.32px; 
+        top: 3.34px; 
+        position: absolute; 
+        background: #292D32;
+    }
+    
+    .nav-link {
+        position: absolute;
+        justify-content: center; 
+        display: flex; 
+        flex-direction: column; 
+        color: black; 
+        font-size: 25px; 
+        font-family: Inder; 
+        font-weight: 400; 
+        line-height: 28px; 
+        word-wrap: break-word;
+        top: 26px;
+        height: 20px;
+    }
+
+    /* Profile Section */
+    .profile-section {
+        display: flex;
+        margin-bottom: 50px;
+    }
+
+    .profile-card {
+        background-color: #2D2A2A;
+        border-radius: 30px;
+        padding: 30px 40px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-pic {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        margin-right: 50px;
+        background-size: cover;
+        background-position: center;
+        border: 5px solid #D9D9D9;
+        background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80');
+    }
+
+    .profile-info {
+        flex: 1;
+    }
+
+    .profile-name {
+        font-size: 60px;
+        margin-bottom: 15px;
+        font-weight: 400;
+        color: white;
+    }
+
+    .profile-stats {
+        font-size: 36px;
+        color: #E3DBDB;
+        font-family: 'Inika', serif;
+    }
+
+    .edit-profile-btn {
+        background-color: #D9D9D9;
+        color: black;
+        padding: 20px 40px;
+        border-radius: 15px;
+        font-size: 36px;
+        text-align: center;
+        cursor: pointer;
+        font-family: 'Inder', sans-serif;
+        transition: all 0.3s ease;
+        border: none;
+        min-width: 350px;
+    }
+
+    .edit-profile-btn:hover {
+        background-color: #c0c0c0;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Stats Section */
+    .stats-section {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 50px;
+    }
+
+    .stat-card {
+        background-color: #2D2A2A;
+        border-radius: 20px;
+        padding: 30px;
+        flex: 1;
+        min-height: 220px;
+        text-align: center;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-8px);
+    }
+
+    .stat-title {
+        font-size: 32px;
+        margin-bottom: 20px;
+        font-family: 'Inika', serif;
+        color: #E3DBDB;
+    }
+
+    .stat-value {
+        font-size: 70px;
+        font-weight: bold;
+        font-family: 'Inika', serif;
+    }
+
+    /* Main Content Sections */
+    .section {
+        background-color: #2D2A2A;
+        border-radius: 20px;
+        padding: 40px;
+        margin-bottom: 50px;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .section-title {
+        font-size: 60px;
+        margin-bottom: 40px;
+        font-weight: 700;
+        color: white;
+    }
+
+    /* Clients Section */
+    .clients-section {
+        background-color: #D9D9D9;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .clients-header {
+        background-color: #2D2A2A;
+        padding: 25px 30px;
+        display: flex;
+        font-weight: 400;
+        color: white;
+        font-size: 28px;
+    }
+
+    .client-row {
+        display: flex;
+        align-items: center;
+        padding: 25px 30px;
+        border-bottom: 2px solid #5D6163;
+        transition: background-color 0.3s ease;
+    }
+
+    .client-row:hover {
+        background-color: #e0e0e0;
+    }
+
+    .client-pic {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-right: 30px;
+        flex-shrink: 0;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .client-name {
+        flex: 1;
+        color: black;
+        font-size: 28px;
+        min-width: 250px;
+        font-weight: 500;
+    }
+
+    .client-plan, .client-progress {
+        width: 300px;
+        color: black;
+        font-size: 24px;
+        min-width: 200px;
+    }
+
+    /* Plans Section */
+    .plans-section {
+        display: flex;
+        gap: 30px;
+    }
+
+    .plan-card {
+        background-color: #2D2A2A;
+        border-radius: 15px;
+        padding: 30px;
+        flex: 1;
+        min-width: 350px;
+        box-shadow: 4px 8px 15px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    .plan-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .plan-name {
+        font-size: 36px;
+        margin-bottom: 25px;
+        font-weight: 400;
+        color: white;
+    }
+
+    .plan-btn {
+        background-color: #D9D9D9;
+        color: black;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 24px;
+        text-align: center;
+        margin-top: 15px;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .plan-btn:hover {
+        background-color: #c0c0c0;
+        transform: translateY(-2px);
+    }
+
+    /* Tools Section */
+    .tools-section {
+        background-color: #2D2A2A;
+        border-radius: 20px;
+        padding: 40px;
+    }
+
+    .tool-item {
+        font-size: 36px;
+        padding: 25px 0;
+        border-bottom: 2px solid #555;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+    }
+
+    .tool-item:before {
+        content: "›";
+        margin-right: 20px;
+        font-size: 40px;
+    }
+
+    .tool-item:hover {
+        color: #D9D9D9;
+        padding-left: 15px;
+    }
+
+    .tool-item:last-child {
+        border-bottom: none;
+    }
+
+    /* Calendar Section */
+    .calendar-section {
+        margin-bottom: 60px;
+    }
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .add-session-btn {
+        background-color: #2D2A2A;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-size: 28px;
+        cursor: pointer;
+        border: none;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .add-session-btn:hover {
+        background-color: #3a3636;
+        transform: translateY(-3px);
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 15px;
+    }
+
+    .calendar-day {
+        background-color: #363636;
+        min-height: 150px;
+        border-radius: 10px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease;
+    }
+
+    .calendar-day:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .day-header {
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 24px;
+        color: #E3DBDB;
+    }
+
+    .day-content {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .session-event {
+        background-color: #4a90e2;
+        color: white;
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 16px;
+        margin-bottom: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .session-event:hover {
+        background-color: #3a7bc8;
+        transform: translateX(5px);
+    }
+
+    /* Messages Section */
+    .messages-section {
+        margin-bottom: 60px;
+    }
+
+    .message {
+        background-color: #2D2A2A;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        border-left: 5px solid #4a90e2;
+    }
+
+    .message:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .message-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        align-items: center;
+    }
+
+    .message-client {
+        font-weight: bold;
+        font-size: 28px;
+    }
+
+    .message-time {
+        color: #E3DBDB;
+        font-size: 20px;
+    }
+
+    .message-content {
+        font-size: 22px;
+        line-height: 1.5;
+    }
+
+    /* Footer */
+    .footer {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-top: 80px;
+        padding: 40px 0;
+        border-top: 2px solid #555;
+    }
+
+    .footer-link {
+        font-size: 24px;
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+        color: #D9D9D9;
+        text-decoration: underline;
+    }
+
+    .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    .social-icon {
+        width: 60px;
+        height: 60px;
+        background-color: #555;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        font-size: 24px;
+        color: white;
+        text-decoration: none;
+    }
+
+    .social-icon:hover {
+        background-color: #D9D9D9;
+        transform: scale(1.1);
+        color: #2D2A2A;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 1600px) {
+        .profile-name {
+            font-size: 50px;
+        }
+        
+        .profile-stats {
+            font-size: 30px;
+        }
+        
+        .edit-profile-btn {
+            font-size: 30px;
+            padding: 15px 30px;
+            min-width: 300px;
+        }
+        
+        .section-title {
+            font-size: 50px;
+        }
+        
+        .stat-title {
+            font-size: 28px;
+        }
+        
+        .stat-value {
+            font-size: 60px;
+        }
+    }
+
+    @media (max-width: 1400px) {
+        .container {
+            padding: 20px 30px;
+        }
+        
+        .profile-pic {
+            width: 180px;
+            height: 180px;
+            margin-right: 30px;
+        }
+        
+        .client-name, .client-plan, .client-progress {
+            font-size: 22px;
+        }
+        
+        .tool-item {
+            font-size: 30px;
+        }
+    }
+
+    @media (max-width: 1200px) {
+        .profile-name {
+            font-size: 40px;
+        }
+        
+        .profile-stats {
+            font-size: 24px;
+        }
+        
+        .edit-profile-btn {
+            font-size: 24px;
+            padding: 12px 24px;
+            min-width: 250px;
+        }
+        
+        .section-title {
+            font-size: 40px;
+        }
+        
+        .client-name, .client-plan, .client-progress {
+            font-size: 18px;
+        }
+        
+        .plan-name {
+            font-size: 30px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .profile-card {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .profile-pic {
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+        
+        .edit-profile-btn {
+            margin-top: 20px;
+        }
+        
+        .stats-section {
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            min-width: calc(50% - 15px);
+        }
+        
+        .clients-header {
+            display: none;
+        }
+        
+        .client-row {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .client-name, .client-plan, .client-progress {
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .plans-section {
+            flex-wrap: wrap;
+        }
+        
+        .plan-card {
+            min-width: 100%;
+        }
+        
+        .calendar-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .nav-link {
+            font-size: 20px;
+        }
+        
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+        }
+        
+        .stat-card {
+            min-width: 100%;
+        }
+        
+        .calendar-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .message-content {
+            font-size: 18px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .section-title {
+            font-size: 32px;
+        }
+        
+        .stat-title {
+            font-size: 22px;
+        }
+        
+        .stat-value {
+            font-size: 50px;
+        }
+        
+        .footer-link {
+            font-size: 18px;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- التنقل من الكود الأول -->
+    <div class="nav-container">
+        <div class="nav-background"></div>
+        <a href="User_DietFood.html">
+            <div class="nav-link" style="width: 86px; left: 207px;">Recipes</div>
+        </a>
+        <a href="subscription.html">
+            <div class="nav-link" style="width: 152px; left: 339px;">Subscription</div>
+        </a>
+        <div class="logo-container">
+            <a href="HomePage.html">
+                <div class="logo"></div>
+            </a>
+        </div>
+        <a href="Trainers.html">
+            <div class="nav-link" style="width: 148px; left: 522px; height: 24px; top: 24px;">Trainer</div>
+        </a>
+        <a href="Workout.html">
+            <div class="nav-link" style="width: 134px; left: 645px;">Workout</div>
+        </a>
+        <a href="userinfo.html">
+            <div style="left: 789px; top: 20px; position: absolute; color: #212020; font-size: 25px; font-family: Inder; font-weight: 400; word-wrap: break-word">view Profile</div>
+        </a>
+    </div>
+
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-card">
+                <div class="profile-pic"></div>
+                <div class="profile-info">
+                    <div class="profile-name">HI, Coach Ahmad T.</div>
+                    <div class="profile-stats">3 sessions Today | 5 Check-Ins Pending</div>
+                </div>
+                <button class="edit-profile-btn">EDIT PROFILE</button>
+            </div>
+        </div>
+        
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-title">Total Clients</div>
+                <div class="stat-value">18</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Active Plans</div>
+                <div class="stat-value">6</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Check-Ins Today</div>
+                <div class="stat-value">5</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Upcoming Sessions</div>
+                <div class="stat-value">3</div>
+            </div>
+        </div>
+        
+        <!-- Clients Section -->
+        <div class="section">
+            <h2 class="section-title">My Clients</h2>
+            
+            <div class="clients-section">
+                <div class="clients-header">
+                    <div style="flex: 1; min-width: 250px;">Client Name</div>
+                    <div style="width: 300px; min-width: 200px;">Current Plan</div>
+                    <div style="width: 300px; min-width: 200px;">Progress</div>
+                </div>
+                
+                <div class="client-row">
+                    <div class="client-pic" style="background-image: url('https://randomuser.me/api/portraits/women/44.jpg')"></div>
+                    <div class="client-name">Sarah Johnson</div>
+                    <div class="client-plan">Lean & Fit</div>
+                    <div class="client-progress">85% Complete</div>
+                </div>
+                
+                <div class="client-row">
+                    <div class="client-pic" style="background-image: url('https://randomuser.me/api/portraits/men/32.jpg')"></div>
+                    <div class="client-name">Michael Chen</div>
+                    <div class="client-plan">Strength 101</div>
+                    <div class="client-progress">62% Complete</div>
+                </div>
+                
+                <div class="client-row">
+                    <div class="client-pic" style="background-image: url('https://randomuser.me/api/portraits/women/68.jpg')"></div>
+                    <div class="client-name">Jessica Williams</div>
+                    <div class="client-plan">Cardio Blast</div>
+                    <div class="client-progress">93% Complete</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Plans Section -->
+        <div class="section">
+            <h2 class="section-title">My Plans</h2>
+            
+            <div class="plans-section">
+                <div class="plan-card">
+                    <div class="plan-name">Lean & Fit</div>
+                    <button class="plan-btn">Edit Plan</button>
+                    <button class="plan-btn">Assign to Client</button>
+                </div>
+                
+                <div class="plan-card">
+                    <div class="plan-name">Strength 101</div>
+                    <button class="plan-btn">Edit Plan</button>
+                    <button class="plan-btn">Assign to Client</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tools Section -->
+        <div class="section tools-section">
+            <h2 class="section-title">Settings & Tools</h2>
+            
+            <div class="tool-item">Change Password</div>
+            <div class="tool-item">Add/Edit Workout Plans</div>
+            <div class="tool-item">Upload Video/Content</div>
+            <div class="tool-item">Logout</div>
+        </div>
+        
+        <!-- Calendar Section -->
+        <div class="section calendar-section">
+            <div class="calendar-header">
+                <h2 class="section-title">Calendar</h2>
+                <button class="add-session-btn">Add New Session</button>
+            </div>
+            
+            <div class="calendar-grid">
+                <div class="calendar-day">
+                    <div class="day-header">Sunday</div>
+                    <div class="day-content">
+                        <div class="session-event">Session with Sarah</div>
+                    </div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-header">Monday</div>
+                    <div class="day-content"></div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-header">Tuesday</div>
+                    <div class="day-content">
+                        <div class="session-event">Session with Michael</div>
+                    </div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-header">Wednesday</div>
+                    <div class="day-content"></div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-header">Thursday</div>
+                    <div class="day-content">
+                        <div class="session-event">Session with Jessica</div>
+                    </div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-header">Friday</div>
+                    <div class="day-content"></div>
+                </div>
+                <div class="calendar-day">
+                    <div class="day-header">Saturday</div>
+                    <div class="day-content">
+                        <div class="session-event">Weekend Workshop</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Messages Section -->
+        <div class="section messages-section">
+            <h2 class="section-title">Client Check-Ins / Messages</h2>
+            
+            <div class="message">
+                <div class="message-header">
+                    <div class="message-client">Sarah Johnson</div>
+                    <div class="message-time">Today, 10:30 AM</div>
+                </div>
+                <div class="message-content">
+                    Hi Coach! Just checking in after completing Week 3 of the Lean & Fit plan. Feeling great but had some questions about the nutrition guidelines...
+                </div>
+            </div>
+            
+            <div class="message">
+                <div class="message-header">
+                    <div class="message-client">Michael Chen</div>
+                    <div class="message-time">Yesterday, 4:15 PM</div>
+                </div>
+                <div class="message-content">
+                    I'm struggling with the deadlift form from Session 4. Could we review this in our next session? Also, should I increase the weight?
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <a href="#" class="footer-link">About</a>
+            <a href="#" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">Terms</a>
+            <a href="#" class="footer-link">Privacy</a>
+            
+            <div class="social-icons">
+                <a href="#" class="social-icon">FB</a>
+                <a href="#" class="social-icon">IG</a>
+                <a href="#" class="social-icon">TW</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
